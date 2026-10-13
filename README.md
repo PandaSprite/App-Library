@@ -28,5 +28,4 @@ A responsive application catalog for browsing, discovering, and downloading soft
 
 Access current and previous builds directly through the repository releases:
 
-[View Releases on GitHub]
-(https://github.com/PandaSprite/App-Library/releases)
+[View Releases on GitHub](https://github.com/PandaSprite/App-Library/releases)
