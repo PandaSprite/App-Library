@@ -18,7 +18,7 @@ A responsive application catalog for browsing, discovering, and downloading soft
 
 | Home Feed | Application Details | Update Center |
 | :---: | :---: | :---: |
-| <img src="screenshots/home.png" width="220" alt="Home Feed"> | <img src="screenshots/details.png" width="220" alt="Application Details"> | <img src="screenshots/updates.png" width="220" alt="Update Center"> |
+| <img src="https://files.catbox.moe/40zcpu.jpg" width="220" alt="Home Feed"> | <img src="https://files.catbox.moe/u0t74s.jpg" width="220" alt="Application Details"> | <img src="https://files.catbox.moe/shcqvd.jpg" width="220" alt="Update Center"> |
 
 ---
 
