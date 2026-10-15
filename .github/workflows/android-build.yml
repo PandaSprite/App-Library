@@ -1,1 +1,51 @@
 
+name: Ludora Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - native-source
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build NativeScript Android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out NativeScript source
+        uses: actions/checkout@v4
+        with:
+          ref: native-source
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Add Android platform
+        run: npx ns platform add android@9.1.1
+
+      - name: Build APK
+        run: npx ns build android --release --env.production
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludora-android-apk
+          path: platforms/android/**/*.apk
+          if-no-files-found: error
+
