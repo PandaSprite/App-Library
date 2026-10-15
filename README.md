@@ -1,4 +1,4 @@
-# App Library
+# LUDORA
 
 A responsive application catalog for browsing, discovering, and downloading software packages, tools, and digital media. Designed with a cross-platform architecture and an adaptive interface.
 
