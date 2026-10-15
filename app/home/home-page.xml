@@ -1,0 +1,72 @@
+<Page navigatingTo="onNavigatingTo"
+      xmlns="http://schemas.nativescript.org/tns.xsd"
+      actionBarHidden="true"
+      backgroundColor="#000000">
+
+    <GridLayout rows="auto,auto,*" padding="18">
+
+        <StackLayout row="0" marginBottom="18">
+            <Label text="LUDORA"
+                   color="#FFFFFF"
+                   fontSize="30"
+                   fontWeight="bold" />
+
+            <Label text="Discover your next favorite app."
+                   color="#AAAAAA"
+                   fontSize="14"
+                   marginTop="4" />
+        </StackLayout>
+
+        <TextField row="1"
+                   hint="Search apps..."
+                   text="{{ searchText }}"
+                   textChange="onSearchChange"
+                   color="#FFFFFF"
+                   hintColor="#888888"
+                   backgroundColor="#191919"
+                   borderRadius="12"
+                   padding="12"
+                   marginBottom="14" />
+
+        <ListView row="2"
+                  items="{{ filteredApps }}"
+                  itemTap="onAppTap"
+                  separatorColor="#292929"
+                  backgroundColor="#000000">
+
+            <ListView.itemTemplate>
+                <GridLayout columns="64,*"
+                            rows="auto"
+                            padding="10"
+                            backgroundColor="#191919">
+
+                    <Image col="0"
+                           src="{{ icon }}"
+                           width="52"
+                           height="52"
+                           stretch="aspectFill"
+                           borderRadius="12"
+                           verticalAlignment="center" />
+
+                    <StackLayout col="1"
+                                 verticalAlignment="center"
+                                 marginLeft="12">
+
+                        <Label text="{{ name }}"
+                               color="#FFFFFF"
+                               fontSize="16"
+                               fontWeight="bold"
+                               textWrap="true" />
+
+                        <Label text="{{ category }}"
+                               color="#AAAAAA"
+                               fontSize="12"
+                               marginTop="4" />
+                    </StackLayout>
+
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+    </GridLayout>
+</Page>
