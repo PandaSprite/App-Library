@@ -14,10 +14,10 @@ permissions:
 jobs:
   build:
     name: Build NativeScript Android
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Check out NativeScript source
+      - name: Checkout NativeScript source
         uses: actions/checkout@v4
         with:
           ref: native-source
@@ -34,8 +34,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Check build environment
+      - name: Diagnose environment
         run: |
+          set -eux
+          echo "PATH=$PATH"
+          command -v node
+          command -v npm
+          command -v java
           node --version
           npm --version
           java -version
@@ -43,17 +48,24 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Install NativeScript CLI
-        run: npm install --global nativescript@9.1.2
+      - name: Install NativeScript CLI locally
+        run: npm install --no-save nativescript@9.1.2
 
       - name: Verify NativeScript CLI
-        run: ns --version
+        run: |
+          set -eux
+          test -x node_modules/.bin/ns
+          ./node_modules/.bin/ns --version
 
       - name: Add Android platform
-        run: npx --yes nativescript@9.1.2 platform add android@9.1.1
+        run: |
+          set -eux
+          ./node_modules/.bin/ns platform add android@9.1.1
 
       - name: Build Android APK
-        run: ns build android
+        run: |
+          set -eux
+          ./node_modules/.bin/ns build android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
