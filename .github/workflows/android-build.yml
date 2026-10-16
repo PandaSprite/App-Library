@@ -34,38 +34,36 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Diagnose environment
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
         run: |
-          set -eux
-          echo "PATH=$PATH"
-          command -v node
-          command -v npm
-          command -v java
-          node --version
-          npm --version
-          java -version
+          sdkmanager --install \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
+          yes | sdkmanager --licenses
 
       - name: Install project dependencies
         run: npm ci
 
-      - name: Install NativeScript CLI locally
-        run: npm install --no-save nativescript@9.1.2
+      - name: Install NativeScript CLI
+        run: npm install --global nativescript@9.1.2
 
-      - name: Verify NativeScript CLI
+      - name: Verify environment
         run: |
-          set -eux
-          test -x node_modules/.bin/ns
-          ./node_modules/.bin/ns --version
+          node --version
+          npm --version
+          java -version
+          sdkmanager --list_installed
+          ns --version
 
       - name: Add Android platform
-        run: |
-          set -eux
-          ./node_modules/.bin/ns platform add android@9.1.1
+        run: ns platform add android@9.1.1
 
       - name: Build Android APK
-        run: |
-          set -eux
-          ./node_modules/.bin/ns build android
+        run: ns build android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
