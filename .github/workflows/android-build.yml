@@ -15,6 +15,7 @@ jobs:
   build:
     name: Build NativeScript Android
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out NativeScript source
         uses: actions/checkout@v4
@@ -24,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22'
           cache: npm
 
       - name: Set up Java
@@ -33,14 +34,26 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install dependencies
+      - name: Check build environment
+        run: |
+          node --version
+          npm --version
+          java -version
+
+      - name: Install project dependencies
         run: npm ci
 
-      - name: Add Android platform
-        run: npx ns platform add android@9.1.1
+      - name: Install NativeScript CLI
+        run: npm install --global nativescript@9.1.2
 
-      - name: Build APK
-        run: npx ns build android --release --env.production
+      - name: Verify NativeScript CLI
+        run: ns --version
+
+      - name: Add Android platform
+        run: ns platform add android@9.1.1
+
+      - name: Build Android APK
+        run: ns build android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -48,4 +61,4 @@ jobs:
           name: ludora-android-apk
           path: platforms/android/**/*.apk
           if-no-files-found: error
-
+          retention-days: 7
