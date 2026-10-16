@@ -50,7 +50,7 @@ jobs:
         run: ns --version
 
       - name: Add Android platform
-        run: ns platform add android@9.1.1
+        run: npx --yes nativescript@9.1.2 platform add android@9.1.1
 
       - name: Build Android APK
         run: ns build android
