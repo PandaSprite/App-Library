@@ -39,12 +39,13 @@ jobs:
 
       - name: Install Android SDK components
         run: |
-          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "emulator"
           yes | sdkmanager --licenses
 
       - name: Verify Android SDK
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
           adb version
           sdkmanager --list_installed
 
